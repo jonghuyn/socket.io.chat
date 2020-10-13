@@ -1,7 +1,7 @@
 
 # Socket.IO Chat
 
-A simple chat demo for socket.io
+A simple chat demo for socket.io with redis
 
 ## How to use
 
@@ -20,3 +20,5 @@ on website load.
 - Users can type chat messages to the chat room.
 - A notification is sent to all users when a user joins or leaves
 the chatroom.
+- The product chat room using redis publish and subscribe funciton
+- The goal of this project is to create a prototype of a comment system. Consider extending the function using socket.io.

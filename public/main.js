@@ -10,6 +10,7 @@ $(function() {
   // Initialize variables
   var $window = $(window);
   var $usernameInput = $('.usernameInput'); // Input for username
+  var $roomnameInput = $('.roomcodeInput') // input for room id
   var $messages = $('.messages'); // Messages area
   var $inputMessage = $('.inputMessage'); // Input message input box
 
@@ -18,6 +19,7 @@ $(function() {
 
   // Prompt for setting a username
   var username;
+  var roomname;
   var connected = false;
   var typing = false;
   var lastTypingTime;
@@ -40,7 +42,7 @@ $(function() {
   const setUsername = () => {
     username = cleanInput($usernameInput.val().trim());
 
-    // If the username is valid
+    //If the username is valid
     if (username) {
       $loginPage.fadeOut();
       $chatPage.show();
@@ -50,6 +52,9 @@ $(function() {
       // Tell the server your username
       socket.emit('add user in room', username);
     }
+  }
+  const setRoomname = ()=>{
+    roomname = cleanInput($roomnameInput.val().trim());
   }
 
   // Sends a chat message
@@ -193,17 +198,18 @@ $(function() {
 
   $window.keydown(event => {
     // Auto-focus the current input when a key is typed
-    if (!(event.ctrlKey || event.metaKey || event.altKey)) {
-      $currentInput.focus();
-    }
+    // if (!(event.ctrlKey || event.metaKey || event.altKey)) {
+    //   $currentInput.focus();
+    // }
     // When the client hits ENTER on their keyboard
     if (event.which === 13) {
-      if (username) {
+      if (username && roomname) {
         sendMessage();
         socket.emit('stop typing');
         typing = false;
       } else {
         setUsername();
+        setRoomname();
       }
     }
   });
@@ -213,12 +219,6 @@ $(function() {
   });
 
   // Click events
-
-  // Focus input when clicking anywhere on login page
-  $loginPage.click(() => {
-    $currentInput.focus();
-  });
-
   // Focus input when clicking on the message input's border
   $inputMessage.click(() => {
     $inputMessage.focus();

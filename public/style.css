@@ -52,25 +52,24 @@ ul {
   background-color: #000;
 }
 
-.login.page .form {
+.login.page .form-room {
   height: 100px;
-  margin-top: -100px;
+  margin-top: -150px;
   position: absolute;
 
   text-align: center;
   top: 50%;
   width: 100%;
 }
-.login.page .form2 {
+.login.page .form-user {
   height: 100px;
-  margin-top: 100px;
+  margin-top: 50px;
   position: absolute;
-
   text-align: center;
   top: 50%;
   width: 100%;
 }
-.login.page .form .usernameInput {
+.login.page .form-user .usernameInput, .login.page .form-room .roomcodeInput {
   background-color: transparent;
   border: none;
   border-bottom: 2px solid #fff;
@@ -84,12 +83,13 @@ ul {
   font-size: 200%;
 }
 
-.login.page .usernameInput {
+.login.page .usernameInput, .login.page .roomcodeInput{
   font-size: 200%;
   letter-spacing: 3px;
+  color: #fff;
 }
 
-.login.page .title, .login.page .usernameInput {
+.login.page .title, .login.page {
   color: #fff;
   font-weight: 100;
 }
