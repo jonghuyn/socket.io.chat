@@ -12,6 +12,6 @@
     "socket.io-redis": "^5.4.0"
   },
   "scripts": {
-    "start": "pm2 start index.js"
+    "start": "node index.js"
   }
 }
