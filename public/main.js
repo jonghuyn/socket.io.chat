@@ -41,16 +41,16 @@ $(function() {
   // Sets the client's username
   const setUsername = () => {
     username = cleanInput($usernameInput.val().trim());
-
+    roomname = cleanInput($roomnameInput.val().trim());
     //If the username is valid
-    if (username) {
+    if (username && roomname) {
       $loginPage.fadeOut();
       $chatPage.show();
       $loginPage.off('click');
       $currentInput = $inputMessage.focus();
 
       // Tell the server your username
-      socket.emit('add user in room', username);
+      socket.emit('add user in room', username, roomname);
     }
   }
   const setRoomname = ()=>{
@@ -230,7 +230,7 @@ $(function() {
   socket.on('login', (data) => {
     connected = true;
     // Display the welcome message
-    var message = "Welcome to 댓글 System example";
+    var message = "Welcome to 댓글 System example ( RoomName : "+ data.roomName+ ")";
     log(message, {
       prepend: true
     });

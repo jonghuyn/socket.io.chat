@@ -35,16 +35,18 @@ io.on('connection', (socket) => {
   });
 
   // when the client emits 'add user', this listens and executes
-  socket.on('add user in room', (username) => {
+  socket.on('add user in room', (username, roomName) => {
+    console.log('add user in room rome name is : ' + roomName);
     if (addedUser) return;
     var client = redis.createClient();
-    client.subscribe(username);
+    client.subscribe(roomName);
     // we store the username in the socket session for this client
     socket.username = username;
     ++numUsers;
     addedUser = true;
     socket.emit('login', {
-      numUsers: numUsers
+      numUsers: numUsers,
+      roomName: roomName
     });
     // echo globally (all clients) that a person has connected
     socket.broadcast.emit('user joined', {
