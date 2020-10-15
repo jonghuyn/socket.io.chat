@@ -26,12 +26,12 @@ io.on('connection', (socket) => {
   // when the client emits 'new message', this listens and executes
   socket.on('new message', (data) => {
     // we tell the client to execute 'new message'
-    socket.broadcast.emit('new message', {
-      username: socket.username,
-      message: data
-    });
+    // socket.broadcast.emit('new message', {
+    //   username: socket.username,
+    //   message: data
+    // });
     var publishclient = redis.createClient();
-    publishclient.publish(socket.username, data)
+    publishclient.publish(socket.roomname, data)
   });
 
   // when the client emits 'add user', this listens and executes
@@ -42,6 +42,7 @@ io.on('connection', (socket) => {
     client.subscribe(roomName);
     // we store the username in the socket session for this client
     socket.username = username;
+    socket.roomname = roomName;
     ++numUsers;
     addedUser = true;
     socket.emit('login', {
@@ -49,15 +50,15 @@ io.on('connection', (socket) => {
       roomName: roomName
     });
     // echo globally (all clients) that a person has connected
-    socket.broadcast.emit('user joined', {
-      username: socket.username,
-      numUsers: numUsers
-    });
+    // socket.broadcast.emit('user joined', {
+    //   username: socket.username,
+    //   numUsers: numUsers
+    // });
     client.on('message',function(channel,data){
       console.log('channel : '+ channel + ' data : ' + data);
-      socket.broadcast.emit('new message', {
-        username: 'redis',
-        message: data + '입력되엇습니다.'
+      socket.emit('new message', {
+        username: socket.username,
+        message: data + '가 입력되엇습니다.'
       });
     })
   });
