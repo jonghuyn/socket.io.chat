@@ -1,4 +1,4 @@
-$(function() {
+$(function () {
   var FADE_TIME = 150; // ms
   var TYPING_TIMER_LENGTH = 400; // ms
   var COLORS = [
@@ -53,7 +53,7 @@ $(function() {
       socket.emit('add user in room', username, roomname);
     }
   }
-  const setRoomname = ()=>{
+  const setRoomname = () => {
     roomname = cleanInput($roomnameInput.val().trim());
   }
 
@@ -65,17 +65,13 @@ $(function() {
     // if there is a non-empty message and a socket connection
     if (message && connected) {
       $inputMessage.val('');
-      addChatMessage({
-        username: username,
-        message: message
-      });
       // tell server to execute 'new message' and send along one parameter
       socket.emit('new message', message);
     }
   }
 
   // Log a message
-    const log = (message, options) => {
+  const log = (message, options) => {
     var $el = $('<li>').addClass('log').text(message);
     addMessageElement($el, options);
   }
@@ -187,7 +183,7 @@ $(function() {
     // Compute hash code
     var hash = 7;
     for (var i = 0; i < username.length; i++) {
-       hash = username.charCodeAt(i) + (hash << 5) - hash;
+      hash = username.charCodeAt(i) + (hash << 5) - hash;
     }
     // Calculate color
     var index = Math.abs(hash % COLORS.length);
@@ -230,7 +226,7 @@ $(function() {
   socket.on('login', (data) => {
     connected = true;
     // Display the welcome message
-    var message = "Welcome to 댓글 System example ( RoomName : "+ data.roomName+ ")";
+    var message = "Welcome to 댓글 System example ( RoomName : " + data.roomName + ")";
     log(message, {
       prepend: true
     });
@@ -244,7 +240,7 @@ $(function() {
 
   // Whenever the server emits 'user joined', log it in the chat body
   socket.on('user joined', (data) => {
-    log(data.username + ' 방에 1명 더 입장');
+    log(data.username + '님 입장하셨습니다. 총원 ' + data.numUsers + '명.');
     addParticipantsMessage(data);
   });
 
