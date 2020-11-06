@@ -6,14 +6,14 @@ var server = require('http').createServer(app);
 var io = require('socket.io')(server);
 var port = process.env.PORT || 4000;
 var redis = require('redis');
-const mongoose = require('mongoose');
-// ENV
-require('dotenv').config();
-mongoose.Promise = global.Promise;
-// CONNECT TO MONGODB SERVER
-mongoose.connect(process.env.MONGO_URI, { useMongoClient: true })
-    .then(() => console.log('Successfully connected to mongodb'))
-    .catch(e => console.error(e));
+// const mongoose = require('mongoose');
+// // ENV
+// require('dotenv').config();
+// mongoose.Promise = global.Promise;
+// // CONNECT TO MONGODB SERVER
+// mongoose.connect(process.env.MONGO_URI, { useMongoClient: true })
+//     .then(() => console.log('Successfully connected to mongodb'))
+//     .catch(e => console.error(e));
 
 server.listen(port, () => {
     console.log('Server listening at port %d', port);
